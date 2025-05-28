@@ -1,0 +1,83 @@
+//EJERCICIOS A REALIZAR
+//1. NOMBRE COMPLETO, CARRERA Y ESTADO DONDE VIVEN
+DECLARE
+    LV_NOMBRE VARCHAR2(100) := 'Cristian Santiago';
+    LV_CARRERA VARCHAR2(50) := 'Ingeniería de Sistemas';
+    LV_ESTADO VARCHAR2(30) := 'Oaxaca';
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('<<<<<<<<<INFORMACION>>>>>>>>>>>');
+    DBMS_OUTPUT.PUT_LINE('Nombre: ' || LV_NOMBRE);
+    DBMS_OUTPUT.PUT_LINE('Carrera: ' || LV_CARRERA);
+    DBMS_OUTPUT.PUT_LINE('Estado: ' || LV_ESTADO);
+END;
+/
+
+//2. IMPRIMIR LAS TABLAS DE MULTIPLICAR DEL 1 AL 10 ej (1. 1*1=1)
+DECLARE
+LV_RESULTADO NUMBER :=0;
+BEGIN
+    FOR i IN 1..10 
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('<<<<<<<<<<<<<<<<<TABLA DEL ' || i ||'>>>>>>>>>>>>>>>>>');
+        FOR j IN 1..10
+        LOOP
+            LV_RESULTADO := i*j;
+            DBMS_OUTPUT.PUT_LINE(i || ' * ' || j || '= ' || LV_RESULTADO);
+        END LOOP;
+    END LOOP;    
+END;
+/
+
+//3. IMPRIMIR LOS NUMEROS PARES DEL 1 AL 20
+DECLARE
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('<<<<<<<<<<<<<<NUMEROS PARES>>>>>>>>>>>>>>');
+    FOR i IN 1..20 
+    LOOP
+        IF MOD(i, 2) = 0 
+        THEN
+            DBMS_OUTPUT.PUT_LINE('LOS NUMEROS PARES SON: ' || i);
+        END IF;
+    END LOOP;
+END;
+/
+
+//4. IMPRIMIR LA SUMA ACUMULADA DE LOS PRIMEROS 10 NUMEROS
+DECLARE
+LV_SUMA NUMBER := 0;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('<<<<<<<<<<<<<<SUMA DE LOS PRIMEROS 10 NUMEROS>>>>>>>>>>>>>>');
+    FOR i IN 1..10 
+    LOOP
+        LV_SUMA := LV_SUMA + i;        
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('EL RESULTADO DE LA SUMA ES: ' || LV_SUMA);
+END;
+/
+
+//5. UN CICLO PARA DETERMINAR SI UN NUMERO ES PRIMO O NO
+DECLARE
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('<<<<<<<<<<<<<<NUMEROS PRIMOS>>>>>>>>>>>>>>');
+    FOR i IN 1..20 
+    LOOP
+        IF MOD(i, 2) != 0 
+        THEN
+            DBMS_OUTPUT.PUT_LINE('LOS NUMEROS PARES SON: ' || i);
+        END IF;
+    END LOOP;
+END;
+/
+
+//6. IMPRIIR LA CUENTA REGRESIVA DEL 10 AL 1
+DECLARE
+LV_CUENTA NUMBER :=10;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('<<<<<<<<<<<<<<CUENTA REGRESIVA>>>>>>>>>>>>>>');
+    WHILE LV_CUENTA >=1
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('CUENTA REGRESIVA: ' || LV_CUENTA);
+        LV_CUENTA := LV_CUENTA - 1;
+    END LOOP;
+END;
+/ 
