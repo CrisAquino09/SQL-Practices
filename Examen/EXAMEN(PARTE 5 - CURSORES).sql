@@ -1,0 +1,46 @@
+//Actividad 3: Procedimiento con cursor y condiciones
+//Crea un procedimiento que:
+//Recorra todos los empleados de un departamento dado (usando cursor).
+//Imprima sus nombres y, si tienen más de 100 horas trabajadas en total, que también imprima: "Empleado con alta carga de trabajo".
+
+CREATE OR REPLACE PROCEDURE PR_CURSOR_EMPLEADOS_DEPARTAMENTO (P_DEPARTAMENTO IN NUMBER)
+IS
+    CURSOR EMPLEADO_HORA IS
+        SELECT E.NOMBRE, TOTAL_HORAS FROM EMPLEADO E
+        INNER JOIN DEPARTAMENTO D
+        ON D.ID_DEPARTAMENTO = E.DEPARTAMENTO_ID
+        WHERE D.ID_DEPARTAMENTO = P_DEPARTAMENTO;
+        
+        LV_EMPLEADO EMPLEADO.NOMBRE%TYPE;
+        LV_TOTAL_HORA NUMBER;
+BEGIN
+    OPEN EMPLEADO_HORA;
+    DBMS_OUTPUT.PUT_LINE('<<<<<<<<<<<<<<<<<EMPLEADOS DEL DEPARTAMENTO ' || (
+    CASE P_DEPARTAMENTO
+    WHEN 1 THEN 'VENTAS'
+    WHEN 2 THEN 'MARKETING'
+    WHEN 3 THEN 'RECURSOS HUMANOS'
+    WHEN 4 THEN 'TECNOLOGIA'
+    WHEN 5 THEN 'FINANZAS'
+    ELSE 'DEPARTAMENTO NO ENCONTRADO'
+    END
+    ) || '>>>>>>>>>>>>>>>>>>>>');
+        LOOP
+            FETCH EMPLEADO_HORA INTO LV_EMPLEADO, LV_TOTAL_HORA;
+            EXIT WHEN EMPLEADO_HORA%NOTFOUND;
+            IF LV_TOTAL_HORA >100 THEN
+                DBMS_OUTPUT.PUT_LINE('EL EMPLEADO: ' || LV_EMPLEADO || ' TIENE UNA ALTA CARGA DE TRABAJO (' || LV_TOTAL_HORA || ' HORAS)');
+            ELSIF LV_TOTAL_HORA =0 THEN
+                DBMS_OUTPUT.PUT_LINE('EL EMPLEADO: ' || LV_EMPLEADO || ' NO HACE NADA');
+            ELSE 
+                DBMS_OUTPUT.PUT_LINE('EL EMPLEADO: ' || LV_EMPLEADO || ' TIENE ' || LV_TOTAL_HORA || ' HORAS DE TRABAJO' );
+            END IF;
+        END LOOP;
+    CLOSE EMPLEADO_HORA;
+END PR_CURSOR_EMPLEADOS_DEPARTAMENTO;
+/
+
+BEGIN
+    PR_CURSOR_EMPLEADOS_DEPARTAMENTO(2);   
+END;
+/
